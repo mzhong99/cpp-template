@@ -1,0 +1,8 @@
+# Vim swap files
+**/*.swp
+
+# Value-change dump (waveform) files
+**/*.vcd
+
+# Artifact and intermediate generation
+waveforms/
