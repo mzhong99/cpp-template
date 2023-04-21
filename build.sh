@@ -57,7 +57,8 @@ done
 pushd ${SCRIPT_DIR}
 
 if [ -f /.dockerenv ]; then
-    echo "Execute CMake Build Commands"
+    echo "--------------------------------------------------------------------------------"
+    echo "Build CMake Project"
     echo "--------------------------------------------------------------------------------"
 
     chown -R $(whoami) ${SCRIPT_DIR}
@@ -71,8 +72,10 @@ if [ -f /.dockerenv ]; then
     ${OUTPUT_DIR}/unittests --duration
     popd
 else
-    echo "Execute Docker Commands"
     echo "--------------------------------------------------------------------------------"
+    echo "Spawn Docker container"
+    echo "--------------------------------------------------------------------------------"
+
     if ! docker --version; then
         echo "Docker CLI missing. Please install Docker CLI first."
         exit 1
