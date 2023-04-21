@@ -59,10 +59,10 @@ def main(args: list):
             run_and_check("{} --duration".format(os.path.join(parsed_args["directory"], "unittests")))
     else:
         run_and_check("docker --version", error_msg="Docker CLI missing. Please install Docker CLI first.", quiet=True)
-        run_and_check("docker build --file Dockerfile --tag fedora:verilog-image .")
-        run_and_check("docker rm -f verilog-container", expect=None, stderr_quiet=True)
-        run_and_check("docker run --interactive --name verilog-container --detach fedora:verilog-image")
-        run_and_check("docker exec --interactive --tty verilog-container /home/validator/build.py")
+        run_and_check("docker build --file Dockerfile --tag fedora:cpp-image .")
+        run_and_check("docker rm -f cpp-container", expect=None, stderr_quiet=True)
+        run_and_check("docker run --interactive --name cpp-container --detach fedora:cpp-image")
+        run_and_check("docker exec --interactive --tty cpp-container /home/validator/build.py")
 
 if __name__ == "__main__":
     main(sys.argv)
