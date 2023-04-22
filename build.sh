@@ -32,7 +32,7 @@ while [ : ]; do
             echo "Clean build directory"
             shift
             ;;
-        -s | --ship-docker)
+        -s | --skip-docker)
             SKIP_DOCKER_BUILD=1
             shift
             ;;
@@ -56,7 +56,7 @@ done
 
 pushd ${SCRIPT_DIR}
 
-if [ -f /.dockerenv ]; then
+if [ -f /.dockerenv ] || [ ${SKIP_DOCKER_BUILD} ]; then
     echo "--------------------------------------------------------------------------------"
     echo "Build CMake Project"
     echo "--------------------------------------------------------------------------------"
@@ -81,7 +81,7 @@ else
         exit 1
     fi
 
-    if [[ SKIP_DOCKER_BUILD -eq 0 ]]; then
+    if [[ $(SKIP_DOCKER_BUILD) -eq 0 ]]; then
         docker build --file ${SCRIPT_DIR}/Dockerfile --tag ${DOCKER_IMAGE_NAME} .
         docker rm -f ${DOCKER_CONTAINER_NAME}
         docker run --interactive --name ${DOCKER_CONTAINER_NAME} --detach ${DOCKER_IMAGE_NAME}
